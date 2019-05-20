@@ -1,0 +1,96 @@
+Memoria Dinámica (tiempo de ejecuciòn) voy ejecutando la app y si necesito mas, 
+el programa va apedir mas cuando sea necesario.
+
+Memoria Estàtica(tiempo de programacion/tiempo de edicion)
+
+char nombres[10][51]; -----> al ser estatica no se puede modificar.
+
+//////////////////////////////////////
+
+MALLOC: pedir memoria al sist operativo en tiempo de ejecucion. Me permite pedir memoria de manera dinamica.
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+struct persona *p;
+
+scanf("%d",&p->fechaNac.dia);    Esto no se puede hacer porque no puedo meter un dato de 4 bytes en uno de 2.
+
+Un puntero a estructura ocupa 2 bytes.
+
+Cualquier puntero de cualquier tipo de memoria pesa siempre 2 bytes porque con eso le alcanza
+para guardar cualquier direccion de memoria de cualquier tipo.
+
+------------------------------------- ---------------------------------------------------
+
+Para poder hacer lo de arriba, tengo que pedir memoria con malloc antes del "scanf".
+
+Entonces tengo que hacer asi:
+
+struct persona *p;
+
+p=(struct Persona *) malloc (sizeof (struct persona));
+
+
+//malloc devuelve un puntero a void. 
+
+Y recien ahora podria hacer esto:
+
+p->fechaNac.dia;
+p->nombre;
+ 
+Si el sist op se encuentra con que no hay memoria, va a retornar "NULL".Que significa direccion nula de memoria.
+
+Entonces tengo que meterlo adentro de un if a lo de arriba para que cuando no de null, entre.
+
+if(p != NULL)
+{
+   p->fechaNac.dia;
+   p->nombre;
+}
+
+"Por ello, antes de usar un puntero devuelto por la función malloc() o por cualquier otra función
+de reserva dinámica de memoria es imprescindible, con el fin de evitar posibles fallos en la
+ejecución del programa, comprobar que dicho puntero no es nulo (NULL)."
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+CALLOC: Inicializa en cero todos los elementos de un array.
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+REALLOC: con esta podemos ir redimensionando la memoria que pedimos.
+Trabaja igual que malloc. la unica diferencia es que recibe dos parametros, el primer parametro es la direc de memoria del primer elemento del bloque que pedi y el segundo,la cant de bytes que voy a pedir.
+Devuelve un puntero a void que va a ser el comienzo de memoria del nuevo bloque. 
+
+p=(struct Persona *) malloc (sizeof (struct persona)*3);
+                            ---------------------------
+                              para 3 elementos.
+
+-------------------------------------------------------------------
+
+p=(struct Persona *) realloc (p , sizeof(struct Persona)*6); 
+
+Si no hay lugares consecutivos cuando volvemos a pedir para agrandar la memoria, busca otro lugar donde este todo consecutivo y haya lugar para lo que pedi.
+
+Si repedimos memoria y no encuentra en ningun lado la cantidad de memoria que pedimos, devuelve "NULL". Pasan todos los datos que tenia a ser NULL, ya que no hay memoria para los demas.
+
+Ejemplo con puntero:
+
+struct persona *p,*pAux;
+
+p=(struct Persona *) realloc (p , sizeof(struct Persona)*6); 
+
+if(pAux != NULL)
+{
+  p=pAux;
+}
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
